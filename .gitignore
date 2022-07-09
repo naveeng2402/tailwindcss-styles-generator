@@ -10,3 +10,4 @@ code.js
 .vscode
 src/data
 *lock
+tailwind.config-full.js

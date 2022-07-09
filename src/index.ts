@@ -22,6 +22,8 @@ export const clear = () => {
   figma.notify("Cleared The File");
 };
 
-clear();
-plugin();
-figma.closePlugin();
+(() => {
+  clear();
+  // plugin();
+  figma.closePlugin();
+})();

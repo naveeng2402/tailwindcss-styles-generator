@@ -1,4 +1,4 @@
-import createColorStyle from "./createStyles";
+import createColorStyle from "./createStyle";
 import { Colors } from "./interfaces";
 
 const colorSystem = (
