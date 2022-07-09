@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+    // "strict": true
+  }
+}
