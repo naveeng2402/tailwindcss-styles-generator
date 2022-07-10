@@ -50,16 +50,16 @@ export const manage_pages = () => {
   });
 };
 
-export const fontFamilyNames = {
-  thin: "Thin",
-  extralight: "ExtraLight",
-  light: "Light",
-  normal: "Regular",
-  medium: "Medium",
-  semibold: "SemiBold",
-  bold: "Bold",
-  extrabold: "ExtraBold",
-  black: "Black",
+export const fontWeightNames = {
+  Thin: "thin",
+  ExtraLight: "extralight",
+  Light: "light",
+  Regular: "normal",
+  Medium: "medium",
+  SemiBold: "semibold",
+  Bold: "bold",
+  ExtraBold: "extrabold",
+  Black: "black",
 };
 
 export const manage_fonts = async () => {
@@ -79,7 +79,7 @@ export const manage_fonts = async () => {
       .filter(
         (el) =>
           fonts.includes(el.fontName.family) &&
-          Object.values(fontFamilyNames).includes(el.fontName.style)
+          Object.keys(fontWeightNames).includes(el.fontName.style)
       )
       .map((el) => el.fontName);
 
