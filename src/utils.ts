@@ -1,3 +1,5 @@
+import { Font_ } from "./types/fonts";
+
 //credits: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgbs
 export const hexToRgb = (hex: string) => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
@@ -46,4 +48,62 @@ export const manage_pages = () => {
     const newPage = figma.createPage();
     newPage.name = page;
   });
+};
+
+export const fontFamilyNames = {
+  thin: "Thin",
+  extralight: "ExtraLight",
+  light: "Light",
+  normal: "Regular",
+  medium: "Medium",
+  semibold: "SemiBold",
+  bold: "Bold",
+  extrabold: "ExtraBold",
+  black: "Black",
+};
+
+export const manage_fonts = async () => {
+  const localFonts = await figma.listAvailableFontsAsync();
+  const tailwindFonts = {};
+  // console.log(localFonts);
+
+  for (let [family, fonts] of Object.entries(global.fontFamily)) {
+    // if (family != "serif") {
+    //   continue;
+    // }
+    fonts = fonts.map((font) => font.replaceAll('"', ""));
+
+    // console.log(family, fonts);
+
+    const x = localFonts
+      .filter(
+        (el) =>
+          fonts.includes(el.fontName.family) &&
+          Object.values(fontFamilyNames).includes(el.fontName.style)
+      )
+      .map((el) => el.fontName);
+
+    if (x.length) {
+      tailwindFonts[family] = Object.values(
+        x.reduce(
+          (sortedData, { family, style }) => {
+            // console.log(family, style);
+            sortedData[family] = sortedData[family] || {
+              family: family,
+              style: [],
+            };
+            sortedData[family].style.push(style);
+            return sortedData;
+          },
+
+          {}
+        )
+      );
+    }
+
+    // console.log(tailwindFonts);
+
+    global.localFonts = localFonts;
+    global.tailwindFonts = tailwindFonts;
+  }
 };
