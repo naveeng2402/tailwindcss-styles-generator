@@ -1,10 +1,7 @@
 import createColorStyle from "./createStyle";
 import { Colors } from "../types/colors";
 
-const colorSystem = (): Record<
-  string,
-  PaintStyle | Record<string, PaintStyle>
-> => {
+const colorSystem = () => {
   const colors: Colors = global.color;
   const colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>> =
     {};
@@ -18,7 +15,7 @@ const colorSystem = (): Record<
     colorStyles[color] = createColorStyle(color, value);
   }
 
-  return colorStyles;
+  global.colorStyles = colorStyles;
 };
 
 export default colorSystem;

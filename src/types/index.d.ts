@@ -13,4 +13,8 @@ declare global {
   var missingFonts: string[];
 }
 
+declare global {
+  var colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>>;
+}
+
 export {};
