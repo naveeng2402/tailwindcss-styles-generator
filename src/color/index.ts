@@ -1,9 +1,11 @@
 import createColorStyle from "./createStyle";
-import { Colors } from "./interfaces";
+import { Colors } from "../types/colors";
 
-const colorSystem = (
-  colors: Colors
-): Record<string, PaintStyle | Record<string, PaintStyle>> => {
+const colorSystem = (): Record<
+  string,
+  PaintStyle | Record<string, PaintStyle>
+> => {
+  const colors: Colors = global.color;
   const colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>> =
     {};
 

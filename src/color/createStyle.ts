@@ -1,5 +1,5 @@
 import { hexToRgb } from "../utils";
-import { Color } from "./interfaces";
+import { Color } from "../types/colors";
 
 const createColorStyle = (
   color: string,
