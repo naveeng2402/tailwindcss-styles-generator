@@ -1,29 +1,34 @@
 import data from "./data/tailwind.json";
 
-import { Colors } from "./color/interfaces";
 import colorSystem from "./color";
+import fontSystem from "./fonts";
 
 import { delete_styles } from "./dev_scripts";
-import { manage_pages } from "./utils";
+import { manage_fonts } from "./utils";
 
-export const plugin = () => {
+export const plugin = async () => {
   console.clear();
 
   // Initialize Variables
-  const colors: Colors = data.theme.colors;
+  global.color = data.theme.colors;
+  global.fontFamily = data.theme.fontFamily;
+  global.fontSize = data.theme.fontSize;
+  global.fontWeight = data.theme.fontWeight;
 
   // manage_pages();
-  colorSystem(colors);
+  colorSystem();
+  await manage_fonts();
+  await fontSystem();
+  console.log(global.colorStyles);
+  console.log(global.fontStyles);
 };
 
 export const clear = () => {
   delete_styles();
-
-  figma.notify("Cleared The File");
 };
 
-(() => {
+(async () => {
   clear();
-  // plugin();
-  figma.closePlugin();
+  await plugin();
+  figma.closePlugin("Plugin Closed");
 })();

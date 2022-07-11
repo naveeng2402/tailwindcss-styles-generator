@@ -1,5 +1,5 @@
 import { Colors } from "./colors";
-import { FontFamily, FontSize, FontWeight, Font_ } from "./fonts";
+import { FontFamily, FontSize, FontWeight, Font_, TextStyle_ } from "./fonts";
 
 declare global {
   var color: Colors;
@@ -15,6 +15,7 @@ declare global {
 
 declare global {
   var colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>>;
+  var fontStyles: Record<string, TextStyle_>;
 }
 
 export {};

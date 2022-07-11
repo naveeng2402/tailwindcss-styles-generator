@@ -17,3 +17,11 @@ export interface Font_ {
   family: string;
   style: string[];
 }
+
+export interface TextStyle_ {
+  [size: string]: {
+    [family: string]: {
+      [weight: string]: TextStyle;
+    };
+  };
+}
