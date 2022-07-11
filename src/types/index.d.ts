@@ -9,6 +9,7 @@ declare global {
   var fontFamily: FontFamily;
   var fontWeight: FontWeight;
   var fontFamilyNames: string[];
+  var breakPoints: Record<string, string>;
 
   var missingFonts: string[];
 }
