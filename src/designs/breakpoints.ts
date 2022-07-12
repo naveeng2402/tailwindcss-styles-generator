@@ -1,7 +1,7 @@
+import { changeCurrentPage } from "../utils";
+
 export const create_breakpoints = () => {
-  figma.currentPage = figma.root.findOne(
-    (node) => node.name === "Breakpoints✌️"
-  ) as PageNode;
+  changeCurrentPage("Breakpoints✌️");
 
   figma.currentPage.children.forEach((child) => child.remove());
 

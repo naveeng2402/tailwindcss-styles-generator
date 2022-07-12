@@ -109,3 +109,9 @@ export const manage_fonts = async () => {
     global.tailwindFonts = tailwindFonts;
   }
 };
+
+export const changeCurrentPage = (pageName: string) => {
+  figma.currentPage = figma.root.findOne(
+    (node) => node.name === pageName
+  ) as PageNode;
+};
