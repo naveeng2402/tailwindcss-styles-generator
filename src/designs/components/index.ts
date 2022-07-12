@@ -1,0 +1,1 @@
+export { displayComponent } from "./displayComponent";

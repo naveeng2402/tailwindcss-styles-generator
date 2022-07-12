@@ -115,3 +115,11 @@ export const changeCurrentPage = (pageName: string) => {
     (node) => node.name === pageName
   ) as PageNode;
 };
+
+export const getTextStyle = (name: string): TextStyle => {
+  return figma.getLocalTextStyles().find((style) => style.name === name);
+};
+
+export const getPaintStyle = (name: string): PaintStyle => {
+  return figma.getLocalPaintStyles().find((style) => style.name === name);
+};
