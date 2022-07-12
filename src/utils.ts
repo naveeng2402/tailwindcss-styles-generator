@@ -31,6 +31,8 @@ export const manage_pages = () => {
     "Spacing📐",
     "BorderRadius⏺️",
     "Shadow🪄",
+    "Components🤖",
+    "----------",
   ];
 
   if (figma.root.children.length > 1) {

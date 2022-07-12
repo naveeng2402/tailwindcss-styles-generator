@@ -31,7 +31,7 @@ const createFontStyle = async (
         textStyle.fontName = font;
         textStyle.fontSize = fontSize;
         textStyle.lineHeight = {
-          value: lineHeight,
+          value: lineHeight === 1 ? 100 : lineHeight,
           unit: lineHeight === 1 ? "PERCENT" : "PIXELS",
         };
         weightsMap[weight] = textStyle;
