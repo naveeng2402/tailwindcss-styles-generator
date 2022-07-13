@@ -1,25 +1,33 @@
-import { changeCurrentPage, getPaintStyle, getTextStyle } from "../../utils";
+import {
+  changeCurrentPage,
+  deleteAllChildren,
+  getPaintStyle,
+  getTextStyle,
+} from "../../utils";
 
 export const displayComponent = async () => {
   changeCurrentPage("Components🤖");
+
+  deleteAllChildren(figma.currentPage);
 
   const preview: RectangleNode = figma.createRectangle();
   preview.name = "preview";
   preview.resize(100, 100);
   preview.cornerRadius = 5;
+  preview.fillStyleId = getPaintStyle("gray/400").id;
 
   let textStyle = getTextStyle("poppins/base/medium");
   await figma.loadFontAsync(textStyle.fontName);
   const title: TextNode = figma.createText();
   title.name = "title";
   title.textStyleId = textStyle.id;
-  title.characters = "title";
+  title.characters = "Title";
   title.fillStyleId = getPaintStyle("gray/800").id;
 
   textStyle = getTextStyle("poppins/sm/light");
   await figma.loadFontAsync(textStyle.fontName);
   const subTitle: TextNode = figma.createText();
-  subTitle.name = "SubTitle";
+  subTitle.name = "subTitle";
   subTitle.textStyleId = textStyle.id;
   subTitle.characters = "SubTitle";
   subTitle.fillStyleId = getPaintStyle("gray/400").id;
@@ -41,4 +49,6 @@ export const displayComponent = async () => {
   display.layoutMode = "VERTICAL";
   display.primaryAxisSizingMode = "AUTO";
   display.itemSpacing = 5;
+
+  global.displayComponent = display;
 };

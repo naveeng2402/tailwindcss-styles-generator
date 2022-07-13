@@ -19,4 +19,8 @@ declare global {
   var fontStyles: Record<string, TextStyle_>;
 }
 
+declare global {
+  var displayComponent: ComponentNode;
+}
+
 export {};

@@ -1,6 +1,6 @@
 import { Font_ } from "./types/fonts";
 
-//credits: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgbs
+// ref: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgbs
 export const hexToRgb = (hex: string) => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
@@ -16,6 +16,15 @@ export const hexToRgb = (hex: string) => {
         b: parseInt(result[3], 16) / 255,
       }
     : null;
+};
+
+export const rgbToHex = (color: RGB): string => {
+  const r: number = Math.floor(color.r * 255);
+  const g: number = Math.floor(color.g * 255);
+  const b: number = Math.floor(color.b * 255);
+  return `#${((1 << 24) + (r << 16) + (g << 8) + b)
+    .toString(16)
+    .slice(1)}`.toUpperCase();
 };
 
 export const remToPx = (rem: string): number => {
@@ -116,10 +125,18 @@ export const changeCurrentPage = (pageName: string) => {
   ) as PageNode;
 };
 
+export const deleteAllChildren = (root: FrameNode | PageNode) => {
+  root.children.forEach((child) => child.remove());
+};
+
 export const getTextStyle = (name: string): TextStyle => {
   return figma.getLocalTextStyles().find((style) => style.name === name);
 };
 
 export const getPaintStyle = (name: string): PaintStyle => {
   return figma.getLocalPaintStyles().find((style) => style.name === name);
+};
+
+export const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
 };
