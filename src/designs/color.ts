@@ -2,8 +2,7 @@ import {
   capitalize,
   changeCurrentPage,
   deleteAllChildren,
-  getPaintStyle,
-  getTextStyle,
+  hexToRgb,
   rgbToHex,
 } from "../utils";
 
@@ -83,14 +82,18 @@ export const createColor = async () => {
       shadeFrame.appendChild(shade);
       shadeFrame.resize(x - x_space, y == 0 ? shade.height : y + shade.height);
     }
-    const textStyle = getTextStyle("serif/8xl/Times New Roman/bold");
-    await figma.loadFontAsync(textStyle.fontName);
+    const titleFont: FontName = {
+      family: "Times New Roman",
+      style: "Regular",
+    };
+    await figma.loadFontAsync(titleFont);
     const title: TextNode = figma.createText();
+    title.fontName = titleFont;
+    title.fontSize = 48;
+    title.lineHeight = { value: 100, unit: "PERCENT" };
     title.name = "Title";
-    title.textStyleId = textStyle.id;
     title.characters = capitalize(color);
-    title.fillStyleId = getPaintStyle("gray/800").id;
-
+    title.fills = [{ type: "SOLID", color: hexToRgb("#1F2937") }];
     const colorFrame = figma.createFrame();
     colorFrame.name = color;
     colorFrame.appendChild(title);

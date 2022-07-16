@@ -21,6 +21,7 @@ declare global {
 
 declare global {
   var displayComponent: ComponentNode;
+  var textComponent: ComponentNode;
 }
 
 export {};
