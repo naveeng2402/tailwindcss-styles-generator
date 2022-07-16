@@ -16,7 +16,7 @@ export const plugin = async () => {
   global.fontWeight = data.theme.fontWeight;
   global.breakPoints = data.theme.screens;
 
-  manage_pages();
+  await manage_pages();
   colorSystem();
   await manage_fonts();
   await fontSystem();

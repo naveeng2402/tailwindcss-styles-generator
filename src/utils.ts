@@ -32,7 +32,7 @@ export const remToPx = (rem: string): number => {
   return Math.floor(val * 16);
 };
 
-export const manage_pages = () => {
+export const manage_pages = async () => {
   const pages = [
     "Breakpoints✌️",
     "Color💥",

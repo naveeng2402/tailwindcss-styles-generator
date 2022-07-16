@@ -8,7 +8,7 @@ export const create_breakpoints = () => {
   const space = 20;
   let x_axis = 0;
   for (const [name, size] of Object.entries(global.breakPoints)) {
-    const node = figma.createFrame();
+    const node = figma.createComponent();
     node.name = name;
     node.resize(parseInt(size), 768);
     node.x = x_axis;
