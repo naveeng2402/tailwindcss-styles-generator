@@ -3,10 +3,8 @@ import data from "./data/tailwind.json";
 import colorSystem from "./color";
 import fontSystem from "./fonts";
 
-import { delete_styles } from "./dev_scripts";
 import { manage_fonts, manage_pages } from "./utils";
-import { create_breakpoints } from "./designs";
-import { displayComponent } from "./designs/components";
+import createDisplays from "./designs";
 
 export const plugin = async () => {
   console.clear();
@@ -18,22 +16,22 @@ export const plugin = async () => {
   global.fontWeight = data.theme.fontWeight;
   global.breakPoints = data.theme.screens;
 
-  // manage_pages();
-  // colorSystem();
-  // await manage_fonts();
-  // await fontSystem();
-  // create_breakpoints();
-  await displayComponent();
+  manage_pages();
+  colorSystem();
+  await manage_fonts();
+  await fontSystem();
+  await createDisplays();
   // console.log(global.colorStyles);
   // console.log(global.fontStyles);
 };
 
-export const clear = () => {
-  delete_styles();
+export const deleteStyles = () => {
+  figma.getLocalPaintStyles().forEach((child) => child.remove());
+  figma.getLocalTextStyles().forEach((child) => child.remove());
 };
 
 (async () => {
-  // clear();
+  deleteStyles();
   await plugin();
   figma.closePlugin("Plugin Closed");
 })();

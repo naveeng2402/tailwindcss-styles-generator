@@ -13,6 +13,7 @@ const createInstance = (
   hexCode: string
 ): InstanceNode => {
   const colorPreview: InstanceNode = global.displayComponent.createInstance();
+  colorPreview.name = weight;
 
   const preview: RectangleNode = colorPreview.findOne(
     (child) => child.name === "preview"
@@ -34,64 +35,41 @@ const createInstance = (
 export const createColor = async () => {
   changeCurrentPage("Color💥");
   deleteAllChildren(figma.currentPage);
-  const singleColorsInstances: InstanceNode[] = [];
-  const colorNodesInstances: Record<string, InstanceNode[]> = {};
 
-  const colorSets: FrameNode[] = [];
+  const colorInstances: Record<string, InstanceNode[]> = {
+    singleColors: [],
+  };
+  const colorFrames: FrameNode[] = [];
+  const colorSystem: FrameNode[] = [];
 
-  const colorSetFrame: FrameNode = figma.createFrame();
-  colorSetFrame.name = "Colors";
-  colorSetFrame.layoutMode = "VERTICAL";
-  colorSetFrame.verticalPadding = colorSetFrame.horizontalPadding = 32;
-  colorSetFrame.itemSpacing = 28;
-  colorSetFrame.counterAxisSizingMode = "AUTO";
-  colorSetFrame.primaryAxisSizingMode = "AUTO";
-
-  // Creating the Instances of the displayComponent
-  for (const [color, values] of Object.entries(global.colorStyles)) {
-    if (values.type === "PAINT") {
+  // Creating Instances
+  for (const [color, styles] of Object.entries(global.colorStyles)) {
+    // generating single style instances
+    if (styles.type === "PAINT") {
       const instance = createInstance(
-        values.id as string,
-        color,
-        rgbToHex(values.paints[0].color)
+        styles.id as string,
+        capitalize(color),
+        rgbToHex(styles.paints[0].color)
       );
-      singleColorsInstances.push(instance);
+      colorInstances.singleColors.push(instance);
       continue;
     }
 
-    colorNodesInstances[color] = [];
-    for (const [shade, style] of Object.entries(values)) {
-      // console.log(color, shade)
+    // generating group style instances
+    colorInstances[color] = [];
+    for (const [shade, style] of Object.entries(styles)) {
       const instance = createInstance(
         style.id,
         shade,
         rgbToHex(style.paints[0].color)
       );
-      colorNodesInstances[color].push(instance);
+      colorInstances[color].push(instance);
     }
   }
 
-  // Creating the singleColorFrame
-  const shadeFrame: FrameNode = figma.createFrame();
   let [x_space, y_space] = [24, 8];
-  let [x, y] = [0, 0];
-  for (const [index, shade] of singleColorsInstances.entries()) {
-    if (index != 0 && index % 5 === 0) {
-      x = 0;
-      y += y_space;
-    }
-    shadeFrame.name = "Single Colors";
-    [shade.x, shade.y] = [x, y];
-    x += shade.width + x_space;
-    shadeFrame.appendChild(shade);
-    shadeFrame.resize(x - x_space, y == 0 ? shade.height : y);
-  }
-  // colorSets.push(shadeFrame);
-  colorSetFrame.appendChild(shadeFrame);
-
-  // Creating the colorFrames
-  for (const [color, shades] of Object.entries(colorNodesInstances)) {
-    // console.log(color, shades);
+  for (const [color, shades] of Object.entries(colorInstances)) {
+    // Creating a shades frame
     const shadeFrame: FrameNode = figma.createFrame();
     let [x, y] = [0, 0];
     for (const [index, shade] of shades.entries()) {
@@ -105,7 +83,6 @@ export const createColor = async () => {
       shadeFrame.appendChild(shade);
       shadeFrame.resize(x - x_space, y == 0 ? shade.height : y + shade.height);
     }
-
     const textStyle = getTextStyle("serif/8xl/Times New Roman/bold");
     await figma.loadFontAsync(textStyle.fontName);
     const title: TextNode = figma.createText();
@@ -118,11 +95,37 @@ export const createColor = async () => {
     colorFrame.name = color;
     colorFrame.appendChild(title);
     colorFrame.appendChild(shadeFrame);
-    colorFrame.resize(shadeFrame.width, 500);
     colorFrame.layoutMode = "VERTICAL";
+    colorFrame.primaryAxisSizingMode = "AUTO";
+    colorFrame.counterAxisSizingMode = "AUTO";
     colorFrame.itemSpacing = 16;
-    // colorSets.push(colorFrame);
-    colorSetFrame.appendChild(colorFrame);
+    colorFrames.push(colorFrame);
     // break;
   }
+
+  for (let i = 0; i < Math.ceil(colorFrames.length / 5); i++) {
+    const newFrame = figma.createFrame();
+    newFrame.name = "Colors";
+    newFrame.verticalPadding = newFrame.horizontalPadding = 32;
+    newFrame.layoutMode = "VERTICAL";
+    newFrame.primaryAxisSizingMode = "AUTO";
+    newFrame.counterAxisSizingMode = "AUTO";
+    newFrame.itemSpacing = 28;
+    colorSystem.push(newFrame);
+  }
+
+  let frameNumber = 0;
+  for (const [index, colorFrame] of colorFrames.entries()) {
+    if (index != 0 && index % 5 == 0) frameNumber++;
+    colorSystem[frameNumber].appendChild(colorFrame);
+  }
+
+  let x = 0;
+  x_space = 40;
+  for (const frame of colorSystem) {
+    frame.x = x;
+    x += frame.width + x_space;
+  }
+
+  figma.viewport.scrollAndZoomIntoView(colorSystem);
 };
