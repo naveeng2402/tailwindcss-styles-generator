@@ -11,7 +11,8 @@ const createInstance = (
   weight: string,
   hexCode: string
 ): InstanceNode => {
-  const colorPreview: InstanceNode = global.displayComponent.createInstance();
+  const colorPreview: InstanceNode =
+    globalThis.displayComponent.createInstance();
   colorPreview.name = weight;
 
   const preview: RectangleNode = colorPreview.findOne(
@@ -42,7 +43,7 @@ export const createColor = async () => {
   const colorSystem: FrameNode[] = [];
 
   // Creating Instances
-  for (const [color, styles] of Object.entries(global.colorStyles)) {
+  for (const [color, styles] of Object.entries(globalThis.colorStyles)) {
     // generating single style instances
     if (styles.type === "PAINT") {
       const instance = createInstance(

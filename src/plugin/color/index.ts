@@ -2,7 +2,7 @@ import createColorStyle from "./createStyle";
 import { Colors } from "../types/colors";
 
 const colorSystem = () => {
-  const colors: Colors = global.color;
+  const colors: Colors = globalThis.color;
   const colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>> =
     {};
 
@@ -15,7 +15,7 @@ const colorSystem = () => {
     colorStyles[color] = createColorStyle(color, value);
   }
 
-  global.colorStyles = colorStyles;
+  globalThis.colorStyles = colorStyles;
 };
 
 export default colorSystem;

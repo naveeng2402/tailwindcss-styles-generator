@@ -78,7 +78,7 @@ export const manage_fonts = async () => {
   const tailwindFonts = {};
   // console.log(localFonts);
 
-  for (let [family, fonts] of Object.entries(global.fontFamily)) {
+  for (let [family, fonts] of Object.entries(globalThis.fontFamily)) {
     // if (family != "serif") {
     //   continue;
     // }
@@ -114,8 +114,8 @@ export const manage_fonts = async () => {
 
     // console.log(tailwindFonts);
 
-    global.localFonts = localFonts;
-    global.tailwindFonts = tailwindFonts;
+    globalThis.localFonts = localFonts;
+    globalThis.tailwindFonts = tailwindFonts;
   }
 };
 

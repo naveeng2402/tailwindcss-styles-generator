@@ -2,10 +2,10 @@
   "compilerOptions": {
     "target": "es2015",
     "downlevelIteration": true,
-    "lib": ["ES6", "ES2021"],
+    "lib": ["ES6", "ES2021", "DOM"],
+    "jsx": "react-jsx",
     "typeRoots": ["./node_modules/@types", "./node_modules/@figma"],
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
     "esModuleInterop": true
   }
 }

@@ -73,5 +73,5 @@ export const displayComponent = async () => {
   display.itemSpacing = 5;
 
   figma.viewport.scrollAndZoomIntoView(figma.currentPage.children);
-  global.displayComponent = display;
+  globalThis.displayComponent = display;
 };

@@ -7,7 +7,7 @@ const createFontStyle = async (
 ): Promise<TextStyle_> => {
   let textStyles: TextStyle_ = {};
 
-  for (const [size, _] of Object.entries(global.fontSize)) {
+  for (const [size, _] of Object.entries(globalThis.fontSize)) {
     const fontSize = remToPx(_[0] as string);
     const lineHeight = /^[0-9]*$/.test(_[1]["lineHeight"] as string)
       ? parseFloat(_[1]["lineHeight"])

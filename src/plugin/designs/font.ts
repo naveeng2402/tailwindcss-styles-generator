@@ -11,7 +11,7 @@ const createInstance = async (
   fontSize: number,
   lineHeight: number
 ): Promise<InstanceNode> => {
-  const instance: InstanceNode = global.textComponent.createInstance();
+  const instance: InstanceNode = globalThis.textComponent.createInstance();
   instance.name = size;
   const text: TextNode = instance.findChild(
     (child) => child.name === "text"
@@ -58,7 +58,7 @@ export const createType = async () => {
   const instances: InstanceNode[] = [];
 
   // create instances
-  for (const [size, _] of Object.entries(global.fontSize)) {
+  for (const [size, _] of Object.entries(globalThis.fontSize)) {
     const fontSize = remToPx(_[0] as string);
     const lineHeight = /^[0-9]*$/.test(_[1]["lineHeight"] as string)
       ? parseFloat(_[1]["lineHeight"])
@@ -84,7 +84,7 @@ export const createType = async () => {
 
   // Creating a Font List frame
   const typeFrames: FrameNode[] = [];
-  for (const [type, value] of Object.entries(global.fontStyles)) {
+  for (const [type, value] of Object.entries(globalThis.fontStyles)) {
     const variants = Object.entries(value)[0][1];
 
     const typeFrame: FrameNode = figma.createFrame();

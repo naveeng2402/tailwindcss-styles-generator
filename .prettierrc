@@ -3,5 +3,7 @@
   "bracketSameLine": true,
   "tabWidth": 2,
   "semi": true,
-  "singleQuote": false
+  "singleQuote": false,
+  "bracketSpacing": true,
+  "printWidth": 80
 }

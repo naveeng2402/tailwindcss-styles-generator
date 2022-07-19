@@ -45,8 +45,8 @@ export const textComponent = async () => {
   comp.itemSpacing = 8;
   comp.appendChild(title);
   comp.appendChild(spec);
-  comp.x = global.displayComponent.width + 20;
+  comp.x = globalThis.displayComponent.width + 20;
 
-  global.textComponent = comp;
+  globalThis.textComponent = comp;
   figma.viewport.scrollAndZoomIntoView(figma.currentPage.children);
 };
