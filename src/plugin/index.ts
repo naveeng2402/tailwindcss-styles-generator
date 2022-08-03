@@ -18,18 +18,22 @@ export const plugin = async (data: any) => {
   globalThis.fontSize = data.theme.fontSize;
   globalThis.fontWeight = data.theme.fontWeight;
   globalThis.breakPoints = data.theme.screens;
-  console.log(data);
-  console.log(globalThis.color);
+  // console.log(data);
+  // console.log(globalThis.color);
+
+  const tasks: Promise<any>[] = [];
 
   await manage_pages();
   globalThis.isUI && figma.ui.postMessage("Generating color styles");
   colorSystem();
-  globalThis.isUI && figma.ui.postMessage("Processing Fonts");
-  await manage_fonts();
-  await fontSystem();
-  await createDisplays();
+  // globalThis.isUI && figma.ui.postMessage("Processing Fonts");
+  // await manage_fonts();
+  // await fontSystem();
+  // await createDisplays();
   // console.log(globalThis.colorStyles);
   // console.log(globalThis.fontStyles);
+
+  Promise.all(tasks);
 };
 
 export const resetFile = () => {

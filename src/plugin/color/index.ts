@@ -1,7 +1,7 @@
 import createColorStyle from "./createStyle";
 import { Colors } from "../types/colors";
 
-const colorSystem = () => {
+const colorSystem = async () => {
   const colors: Colors = globalThis.color;
   const colorStyles: Record<string, PaintStyle | Record<string, PaintStyle>> =
     {};
