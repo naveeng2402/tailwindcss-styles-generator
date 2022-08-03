@@ -2,6 +2,8 @@ import { Colors } from "./colors";
 import { FontFamily, FontSize, FontWeight, Font_, TextStyle_ } from "./fonts";
 
 declare global {
+  var isUI: boolean;
+
   var color: Colors;
   var localFonts: Font[];
   var tailwindFonts: Record<string, Font_[]>;

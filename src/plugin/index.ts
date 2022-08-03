@@ -1,4 +1,4 @@
-// import data from "./data/tailwind.json";
+import data from "./data/tailwind.json";
 
 import colorSystem from "./color";
 import fontSystem from "./fonts";
@@ -6,8 +6,10 @@ import fontSystem from "./fonts";
 import { manage_fonts, manage_pages } from "./utils";
 import createDisplays from "./designs";
 
+globalThis.isUI = false;
+
 export const plugin = async (data: any) => {
-  // console.clear();
+  console.clear();
   console.warn("inside plugin()");
 
   // Initialize Variables
@@ -20,9 +22,9 @@ export const plugin = async (data: any) => {
   console.log(globalThis.color);
 
   await manage_pages();
-  figma.ui.postMessage("Generating color styles");
+  globalThis.isUI && figma.ui.postMessage("Generating color styles");
   colorSystem();
-  figma.ui.postMessage("Processing Fonts");
+  globalThis.isUI && figma.ui.postMessage("Processing Fonts");
   await manage_fonts();
   await fontSystem();
   await createDisplays();
@@ -30,13 +32,17 @@ export const plugin = async (data: any) => {
   // console.log(globalThis.fontStyles);
 };
 
-export const deleteStyles = () => {
+export const resetFile = () => {
+  figma.root.children.forEach((page) => {
+    if (page != figma.currentPage) page.remove();
+  });
+
   figma.getLocalPaintStyles().forEach((child) => child.remove());
   figma.getLocalTextStyles().forEach((child) => child.remove());
 };
 
-// (async () => {
-// deleteStyles();
-// await plugin();
-//   figma.closePlugin("Plugin Closed");
-// })();
+(async () => {
+  resetFile();
+  await plugin(data);
+  figma.closePlugin("Plugin Closed");
+})();
