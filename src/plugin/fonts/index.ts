@@ -6,7 +6,7 @@ const fontSystem = async () => {
   let fontStyles: Record<string, TextStyle_> = {};
 
   for (const [type, fonts] of Object.entries(tailwindFonts)) {
-    figma.ui.postMessage(`Generating font styles (${type})`);
+    globalThis.isUI && figma.ui.postMessage(`Generating font styles (${type})`);
     fontStyles[type] = await createFontStyle(type, fonts);
     console.log(`Generated ${type}.`);
   }

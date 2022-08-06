@@ -9,15 +9,15 @@ const createDisplays = async () => {
   changeCurrentPage("Components🤖");
   deleteAllChildren(figma.currentPage);
 
-  figma.ui.postMessage("Generating components");
+  globalThis.isUI && figma.ui.postMessage("Generating components");
   await displayComponent();
   await textComponent();
 
   create_breakpoints();
 
-  figma.ui.postMessage("Generating color system");
+  globalThis.isUI && figma.ui.postMessage("Generating color system");
   await createColor();
-  figma.ui.postMessage("Generating type system");
+  globalThis.isUI && figma.ui.postMessage("Generating type system");
   await createType();
 };
 
